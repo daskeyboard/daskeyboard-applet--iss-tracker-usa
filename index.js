@@ -46,8 +46,9 @@ class ISSTracker extends q.DesktopApp {
   }
 
   generateSignal(distance) {
-    let color = "#000000";
-    let effect = "SOLID";
+    logger.info("THIS IS THE SIGNAL GENERATION");
+    let color;
+    let effect;
     let message = "";
 
     if (distance < 500) {
@@ -56,13 +57,15 @@ class ISSTracker extends q.DesktopApp {
       message = `ISS is ${Math.round(distance)}km away! Look up!`;
     } else if (distance < 1000) {
       color = "#0080FF";
-      effect = "BREATHE";
+      effect = "BLINK";
       message = `ISS is approaching - ${Math.round(distance)}km away!`;
     } else {
       color = "#004080";
-      effect = "SOLID";
+      effect = "SET_COLOR";
       message = `ISS tracking - ${Math.round(distance)}km away.`;
     }
+
+    logger.info(`THIS IS THE SIGNAL COLOR: ${color}`);
 
     return new q.Signal({
       points: [[new q.Point(color, effect)]],
@@ -72,78 +75,29 @@ class ISSTracker extends q.DesktopApp {
   }
 
   async run() {
-    try {
-      const userLat = this.config.latitude;
-      const userLon = this.config.longitude;
+    const userLat = this.config.latitude;
+    const userLon = this.config.longitude;
 
-      if (!userLat || !userLon) {
-        return new q.Signal({
-          points: [[new q.Point("#FF0000")]],
-          name: "ISS Tracker",
-          message: "Please configure your location in settings",
-        });
-      }
-
-      const issLocation = await this.getISSLocation();
-
-      const distance = this.calculateDistance(
-        userLat,
-        userLon,
-        issLocation.latitude,
-        issLocation.longitude
-      );
-      return this.generateSignal(distance);
-    } catch (error) {
-      logger.error("Error in ISS Tracker:", error);
+    if (!userLat || !userLon) {
       return new q.Signal({
         points: [[new q.Point("#FF0000")]],
-        name: "ISS Tracker Error",
-        message: "Failed to get ISS data",
+        name: "ISS Tracker",
+        message: "Please configure your location in settings",
       });
     }
+
+    const issLocation = await this.getISSLocation();
+
+    const distance = this.calculateDistance(
+      userLat,
+      userLon,
+      issLocation.latitude,
+      issLocation.longitude
+    );
+
+    return this.generateSignal(distance);
   }
 }
 
 module.exports = { ISSTracker: ISSTracker };
 const applet = new ISSTracker();
-
-if (require.main === module) {
-  (async () => {
-    const tracker = new ISSTracker();
-
-    try {
-      // Step 1: Get real-time ISS location
-      const issLocation = await tracker.getISSLocation();
-
-      console.log("🌍 ISS Current Location:");
-      console.log(`Latitude:  ${issLocation.latitude}`);
-      console.log(`Longitude: ${issLocation.longitude}`);
-      console.log(
-        `Timestamp: ${new Date(issLocation.timestamp * 1000).toLocaleString()}`
-      );
-
-      // Step 2: Define user location (simulate Austin, TX)
-      const userLat = 30.2672;
-      const userLon = -97.7431;
-
-      // Step 3: Calculate distance to ISS
-      const distance = tracker.calculateDistance(
-        userLat,
-        userLon,
-        issLocation.latitude,
-        issLocation.longitude
-      );
-
-      console.log(`📏 Distance from Austin, TX: ${Math.round(distance)} km`);
-
-      // Step 4: Generate the signal
-      const signal = tracker.generateSignal(distance);
-
-      // Step 5: Print out the full signal for inspection
-      console.log("📡 Generated Signal:");
-      console.log(JSON.stringify(signal, null, 2));
-    } catch (error) {
-      console.error("❌ Error during ISS Tracker test:", error.message);
-    }
-  })();
-}
