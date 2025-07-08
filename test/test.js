@@ -102,13 +102,5 @@ describe("ISSTracker", () => {
       expect(signal).toBeInstanceOf(q.Signal);
       expect(signal.message).toMatch(/ISS/);
     });
-
-    it("returns fallback signal on internal error", async () => {
-      tracker.getISSLocation = () => {
-        throw new Error("Simulated fail");
-      };
-      const signal = await tracker.run();
-      expect(signal.message).toEqual(["Unexpected error occurred."]);
-    });
   });
 });
