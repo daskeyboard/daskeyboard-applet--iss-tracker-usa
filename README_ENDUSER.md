@@ -14,8 +14,8 @@ Track the International Space Station (ISS) in real time on your Das Keyboard us
 ## 🧭 Setup Instructions
 
 1. **Install the applet** on Das Keyboard Q software
-2. **Enter your latitude and longitude** in the applet configuration
-3. **Assign the applet to any key** on your keyboard
+2. **Assign the applet to any key** on your keyboard
+3. **Enter your latitude and longitude** in the applet configuration
 4. **Watch the key light up** based on the ISS's position!
 
 > Tip: When the key turns green and starts blinking, **look up** – the ISS might be directly overhead!
