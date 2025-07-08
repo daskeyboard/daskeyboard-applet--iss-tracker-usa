@@ -1,9 +1,9 @@
 {
   "name": "daskeyboard-applet--iss-tracker",
-  "displayName": "ISS Tracker & Space Events",
+  "displayName": "ISS Tracker",
   "version": "1.0.0",
-  "description": "Track the International Space Station and space events on your keyboard",
-  "longDescription": "Get notified when the ISS passes overhead your location with beautiful LED effects. Includes space weather alerts and upcoming space events.",
+  "description": "Tracks the International Space Station.",
+  "longDescription": "Get notified when the ISS passes overhead your location.",
   "officialProductName": "ISS Tracker",
   "publisherName": "Das Keyboard",
   "publisher": "Das Keyboard",
