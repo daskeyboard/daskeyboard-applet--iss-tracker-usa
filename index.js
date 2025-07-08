@@ -5,23 +5,27 @@ const logger = q.logger;
 class ISSTracker extends q.DesktopApp {
   constructor() {
     super();
-    this.pollingInterval = 30000; // runs every 30 seconds
+    this.pollingInterval = 30 * 0.5 * 1000; // runs every 30 seconds
 
     logger.info("ISS Tracker ready to launch!");
   }
 
   async getISSLocation() {
-    const response = await fetch("http://api.open-notify.org/iss-now.json");
-    const data = await response.json(); // fetching and parsing the response
+    try {
+      const response = await fetch("http://api.open-notify.org/iss-now.json");
+      const data = await response.json(); // fetching and parsing the response
 
-    if (data.message !== "success") {
-      throw new Error("Failed to get ISS Location"); // error thrown if api doesn't work
+      if (data.message !== "success") {
+        throw new Error("API returned failure status"); // error thrown if api doesn't work
+      }
+
+      return {
+        latitude: parseFloat(data.iss_position.latitude),
+        longitude: parseFloat(data.iss_position.longitude),
+      };
+    } catch (error) {
+      throw new Error(`Failed to get ISS location: ${error.message}`);
     }
-
-    return {
-      latitude: parseFloat(data.iss_position.latitude),
-      longitude: parseFloat(data.iss_position.longitude),
-    };
   }
 
   calculateDistance(lat1, lon1, lat2, lon2) {
@@ -82,8 +86,20 @@ class ISSTracker extends q.DesktopApp {
     const userLat = this.config.latitude;
     const userLon = this.config.longitude;
 
-    if (!userLat || !userLon) {
-      return new q.Signal.error(["User needs to input his coordinates."]);
+    if (
+      // checking the coordinates given by the user are valid
+      typeof userLat !== "number" ||
+      typeof userLon !== "number" ||
+      isNaN(userLat) ||
+      isNaN(userLon) ||
+      userLat < -90 ||
+      userLat > 90 ||
+      userLon < -180 ||
+      userLon > 180
+    ) {
+      return new q.Signal.error([
+        "Invalid coordinates. Please check your latitude and longitude.",
+      ]);
     }
 
     const issLocation = await this.getISSLocation();
