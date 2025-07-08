@@ -4,10 +4,10 @@ Track the International Space Station (ISS) in real time on your Das Keyboard us
 
 ## 🚀 Features
 
-- 🟢 **Green blink** when ISS is directly overhead (within 500 km)
+- 🟢 **Green blink** when ISS is overhead (within 500 km)
 - 🟡 **Yellow blink** when ISS is very close (within 1000 km)
 - 🟠 **Orange blink** when ISS is nearby (within 2000 km)
-- 🔴 **Red steady glow** when ISS is farther away but still orbiting overhead
+- 🔴 **Red steady glow** when ISS is far away
 - 🌐 Accurate real-time ISS tracking using live location data from [Open Notify API](http://api.open-notify.org/iss-now.json)
 - 🧠 Built-in haversine distance calculation between you and the ISS
 
