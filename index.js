@@ -75,7 +75,6 @@ class ISSTracker extends q.DesktopApp {
         distance
       )}km from your location.`;
     }
-    logger.info(`message: ${message}, color: ${color}, effect: ${effect}`);
     return new q.Signal({
       points: [[new q.Point(color, effect)]],
       name: "ISS Tracker",
@@ -86,12 +85,6 @@ class ISSTracker extends q.DesktopApp {
   async run() {
     const userLat = this.config.latitude;
     const userLon = this.config.longitude;
-    logger.info("==================================================");
-    logger.info("Process is running");
-    logger.info(
-      `LAT: ${userLat}, LONG: ${userLon}, TYPE: ${typeof userLat} ${typeof userLon}`
-    );
-    logger.info("==================================================");
     if (
       isNaN(userLat) ||
       isNaN(userLon) ||
@@ -100,16 +93,11 @@ class ISSTracker extends q.DesktopApp {
       userLon < -180 ||
       userLon > 180
     ) {
-      logger.info("THERE IS AN ERRORRRRRRRRRRRRRRRRRRRRRRR");
-
       return new q.Signal.error([
         "Invalid coordinates. Please check your latitude and longitude.",
       ]);
     }
 
-    logger.info("==================================================");
-    logger.info("Process is running fine");
-    logger.info("==================================================");
     const issLocation = await this.getISSLocation();
 
     const distance = this.calculateDistance(
