@@ -1,5 +1,7 @@
 # Q Applet: ISS Tracker
 
+Track the International Space Station (ISS) in real time directly on your Das Keyboard Q series.
+
 ## Example
 
 ISS Tracker on escape key.
