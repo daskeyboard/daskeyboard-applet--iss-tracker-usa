@@ -2,7 +2,7 @@
   "name": "daskeyboard-applet--iss-tracker",
   "displayName": "ISS Tracker",
   "version": "1.0.0",
-  "description": "Tracks the International Space Station.",
+  "description": "Tracks the International Space Station (ISS) and notifies you when it passes overhead your location.",
   "longDescription": "Get notified when the ISS passes overhead your location.",
   "officialProductName": "ISS Tracker",
   "publisherName": "Das Keyboard",

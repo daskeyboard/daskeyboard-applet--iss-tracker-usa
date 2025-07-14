@@ -2,7 +2,7 @@
 
 Track the International Space Station (ISS) in real time on your Das Keyboard using live orbital data!
 
-![ISS Tracker on a Das Keyboard Q](assets/image.png "Q ISS Tracker")
+![International Space Station](assets/iss.png "International Space Station")
 
 ## 🚀 Features
 
@@ -19,6 +19,8 @@ Track the International Space Station (ISS) in real time on your Das Keyboard us
 2. **Assign the applet to any key** on your keyboard
 3. **Enter your latitude and longitude** in the applet configuration
 4. **Watch the key light up** based on the ISS's position!
+
+![ISS Tracker on a Das Keyboard Q](assets/image.png "Q ISS Tracker")
 
 > Tip: When the key turns green and starts blinking, **look up** – the ISS might be directly overhead!
 
