@@ -28,6 +28,24 @@ class ISSTracker extends q.DesktopApp {
     }
   }
 
+  async getUserCoordinates() {
+    const geoUrl = `https://geocoding-api.open-meteo.com/v1/search?name=${this.config.postalCode}&count=1&countryCode=US`;
+    const response = await fetch(geoUrl);
+
+    if (!response.ok) {
+      throw new Error(`Geocoding API failed: ${response.statusText}`);
+    }
+
+    const data = await response.json();
+
+    if (!data.results || data.results.length === 0) {
+      throw new Error(`Postal code not found: "${this.config.postalCode}".`);
+    }
+
+    const { latitude, longitude } = data.results[0];
+    return [latitude, longitude]; // returning the latitude and longitude of the user's location
+  }
+
   calculateDistance(lat1, lon1, lat2, lon2) {
     // haversine formula function to compute the great-circle distance between two points on a sphere
     const R = 6371; // Earth's radius
@@ -83,8 +101,7 @@ class ISSTracker extends q.DesktopApp {
   }
 
   async run() {
-    const userLat = this.config.latitude;
-    const userLon = this.config.longitude;
+    const [userLat, userLon] = await this.getUserCoordinates();
     if (
       isNaN(userLat) ||
       isNaN(userLon) ||

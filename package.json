@@ -1,17 +1,17 @@
 {
-  "name": "daskeyboard-applet--iss-tracker",
-  "displayName": "ISS Tracker",
+  "name": "daskeyboard-applet--iss-tracker-usa",
+  "displayName": "ISS Tracker - USA",
   "version": "1.0.0",
   "description": "Tracks the International Space Station (ISS) and notifies you when it passes overhead your location.",
   "longDescription": "Get notified when the ISS passes overhead your location.",
-  "officialProductName": "ISS Tracker",
+  "officialProductName": "ISS Tracker - USA",
   "publisherName": "Das Keyboard",
   "publisher": "Das Keyboard",
   "authorName": "Das Keyboard",
   "authorUrl": "https://github.com/daskeyboard",
-  "issuesUrl": "https://github.com/Rubiksel/daskeyboard-applet--iss-tracker/issues",
-  "developerRepoUrl": "https://github.com/Rubiksel/daskeyboard-applet--iss-tracker",
-  "homePageUrl": "https://github.com/Rubiksel/daskeyboard-applet--iss-tracker",
+  "issuesUrl": "https://github.com/Rubiksel/daskeyboard-applet--iss-tracker-usa/issues",
+  "developerRepoUrl": "https://github.com/Rubiksel/daskeyboard-applet--iss-tracker-usa",
+  "homePageUrl": "https://github.com/Rubiksel/daskeyboard-applet--iss-tracker-usa",
   "isSingleton": false,
   "videoUrl": "",
   "icon": "assets/icon.png",
@@ -39,19 +39,11 @@
     },
     "questions": [
       {
-        "key": "latitude",
-        "label": "Your Latitude",
-        "help": "Enter your latitude (e.g., 30.2666 for Austin)",
+        "key": "postalCode",
+        "label": "Your Postal Code",
+        "help": "Enter your postal code",
         "required": true,
         "order": 1,
-        "controlType": "textbox"
-      },
-      {
-        "key": "longitude",
-        "label": "Your Longitude",
-        "help": "Enter your longitude (e.g., -97.7333 for Austin)",
-        "required": true,
-        "order": 2,
         "controlType": "textbox"
       }
     ]
