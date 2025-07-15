@@ -110,7 +110,7 @@ class ISSTracker extends q.DesktopApp {
       userLon < -180 ||
       userLon > 180
     ) {
-      return new q.Signal.error([
+      return q.Signal.error([
         "Invalid coordinates. Please check your latitude and longitude.",
       ]);
     }
