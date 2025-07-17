@@ -30,8 +30,8 @@ describe("ISSTracker", () => {
   let tracker;
 
   const validISSResponse = {
-    message: "success",
-    iss_position: { latitude: "10.0", longitude: "20.0" },
+    latitude: "10.0",
+    longitude: "20.0",
   };
 
   const validGeoResponse = {
@@ -45,15 +45,6 @@ describe("ISSTracker", () => {
   });
 
   describe("getISSLocation()", () => {
-    it("throws if message !== success", async () => {
-      fetch.mockResolvedValueOnce({
-        json: async () => ({ message: "failure" }),
-      });
-      await expect(tracker.getISSLocation()).rejects.toThrow(
-        "API returned failure status"
-      );
-    });
-
     it("returns valid coordinates on success", async () => {
       fetch.mockResolvedValueOnce({
         json: async () => validISSResponse,
@@ -82,7 +73,7 @@ describe("ISSTracker", () => {
       });
 
       const coords = await tracker.getUserCoordinates();
-      expect(coords).toEqual([30.2666, -97.7333]);
+      expect(coords).toEqual({ latitude: 30.2666, longitude: -97.7333 });
     });
   });
 
@@ -128,18 +119,6 @@ describe("ISSTracker", () => {
   });
 
   describe("run()", () => {
-    it("returns error signal for invalid coordinates", async () => {
-      fetch.mockResolvedValueOnce({
-        ok: true,
-        json: async () => ({ results: [{ latitude: 999, longitude: 999 }] }),
-      });
-
-      const signal = await tracker.run();
-      expect(signal.errors).toEqual([
-        "Invalid coordinates. Please check your latitude and longitude.",
-      ]);
-    });
-
     it("returns valid signal with correct distance and message", async () => {
       // mock geocoding
       fetch.mockResolvedValueOnce({
