@@ -10,18 +10,30 @@ class ISSTracker extends q.DesktopApp {
     logger.info("ISS Tracker ready to launch!");
   }
 
+  async applyConfig() {
+    if (!this.config.postalCode) {
+      throw new Error("Postal code is required.");
+    }
+    const location = await this.getUserCoordinates();
+
+    this.userLat = location.latitude;
+    this.userLon = location.longitude;
+    logger.info(
+      `User coordinates set to: ${location.latitude}, ${location.longitude}`
+    );
+    return true;
+  }
+
   async getISSLocation() {
     try {
-      const response = await fetch("http://api.open-notify.org/iss-now.json");
+      const response = await fetch(
+        "https://api.wheretheiss.at/v1/satellites/25544"
+      ); // 25544 is the ISS's NORAD ID
       const data = await response.json(); // fetching and parsing the response
 
-      if (data.message !== "success") {
-        throw new Error("API returned failure status"); // error thrown if api doesn't work
-      }
-
       return {
-        latitude: parseFloat(data.iss_position.latitude),
-        longitude: parseFloat(data.iss_position.longitude),
+        latitude: parseFloat(data.latitude),
+        longitude: parseFloat(data.longitude),
       };
     } catch (error) {
       throw new Error(`Failed to get ISS location: ${error.message}`);
@@ -42,8 +54,7 @@ class ISSTracker extends q.DesktopApp {
       throw new Error(`Postal code not found: "${this.config.postalCode}".`);
     }
 
-    const { latitude, longitude } = data.results[0];
-    return [latitude, longitude]; // returning the latitude and longitude of the user's location
+    return data.results[0];
   }
 
   calculateDistance(lat1, lon1, lat2, lon2) {
@@ -101,25 +112,11 @@ class ISSTracker extends q.DesktopApp {
   }
 
   async run() {
-    const [userLat, userLon] = await this.getUserCoordinates();
-    if (
-      isNaN(userLat) ||
-      isNaN(userLon) ||
-      userLat < -90 ||
-      userLat > 90 ||
-      userLon < -180 ||
-      userLon > 180
-    ) {
-      return q.Signal.error([
-        "Invalid coordinates. Please check your latitude and longitude.",
-      ]);
-    }
-
     const issLocation = await this.getISSLocation();
 
     const distance = this.calculateDistance(
-      userLat,
-      userLon,
+      this.userLat,
+      this.userLon,
       issLocation.latitude,
       issLocation.longitude
     );
