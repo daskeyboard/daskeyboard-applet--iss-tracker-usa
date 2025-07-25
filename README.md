@@ -20,8 +20,6 @@ Track the International Space Station (ISS) in real time directly on your Das Ke
 3. **Enter your latitude and longitude** in the applet configuration
 4. **Watch the key light up** based on the ISS's position!
 
-![ISS Tracker on a Das Keyboard Q](assets/image.png "Q ISS Tracker")
-
 > Tip: When the key turns green and starts blinking, **look up** – the ISS might be directly overhead!
 
 ---
