@@ -1,5 +1,7 @@
 # 🛰️ ISS Tracker – Das Keyboard Applet
 
+This applet's source code can be found [here](https://github.com/daskeyboard/daskeyboard-applet--iss-tracker-usa).
+
 Track the International Space Station (ISS) in real time on your Das Keyboard using live orbital data!
 
 ![International Space Station](assets/iss.png "International Space Station")

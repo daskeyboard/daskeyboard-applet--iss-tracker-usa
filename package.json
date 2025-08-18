@@ -1,7 +1,7 @@
 {
   "name": "daskeyboard-applet--iss-tracker-usa",
   "displayName": "ISS Tracker - USA",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Tracks the International Space Station (ISS) and notifies you when it passes over your location",
   "longDescription": "Tracks the International Space Station in real time and alerts you when it passes over your location, so you never miss a flyover.",
   "officialProductName": "ISS Tracker - USA",
